@@ -15,7 +15,7 @@ struct info {
 
 struct academico {
 	char numeroEmpleado[13];
-	struct info datos_profesor;
+	struct info datos_profesor[5];
 } profesor[5]; 
 
 struct alumnado {
@@ -24,6 +24,7 @@ struct alumnado {
 	struct info datos_estudiante;
 } estudiante[4];
 
+int num_registros = 0;
 
 void registrarAcademicos(int num_registros) {
 	int i;
@@ -39,19 +40,19 @@ void registrarAcademicos(int num_registros) {
 		fgets(profesor[i].numeroEmpleado, 13, stdin);
 		fflush(stdin);
 		printf("Dame nombre: ");
-		fgets(profesor[i].datos_profesor.nombre, 25, stdin);
+		fgets(profesor[i].datos_profesor[i].nombre, 25, stdin);
 		fflush(stdin);
 		printf("Dame apellido paterno: ");
-		fgets(profesor[i].datos_profesor.apPaterno, 25, stdin);
+		fgets(profesor[i].datos_profesor[i].apPaterno, 25, stdin);
 		fflush(stdin);
 		printf("Dame apellido materno: ");
-		fgets(profesor[i].datos_profesor.apMaterno, 25, stdin);
-        printf("\n<--------- Información capturada --------->\n");
+		fgets(profesor[i].datos_profesor[i].apMaterno, 25, stdin);
+        /*printf("\n<--------- Información capturada --------->\n");
 		printf(" ID: %s", profesor[i].numeroEmpleado);
 		printf(" Nombre: %s", profesor[i].datos_profesor.nombre);
 		printf(" Apellido paterno: %s", profesor[i].datos_profesor.apPaterno);
 		printf(" Apellido materno: %s", profesor[i].datos_profesor.apMaterno);
-        printf("<----------------------------------------->\n");
+        printf("<----------------------------------------->\n");*/
 	}
 }
 
@@ -88,8 +89,7 @@ void registrarAlumnos(int num_registros) {
 }
 
 void menu () {
-	int op;
-    int num_registros = 0;
+    int op;
 
 	puts("¿Qué deseas capturar?");
 	puts("1.-Profesorado");
@@ -98,7 +98,6 @@ void menu () {
 	scanf("%i", &op);
 
 	if (op == 1) {
-		
 		num_registros = 5;
 		registrarAcademicos(num_registros);
 	} else if (op == 2) {
@@ -109,8 +108,17 @@ void menu () {
 	}
 
 }
+void imprimirProfesores () {
+        printf("\n--------------------------------------\n");
+        printf("Imprimiendo Profesores\n");
+        for (int i=0; i<num_registros; i++){
+                printf("\n\tID: %s \tNombre:%s \tApellido Paterno: %s \tApellido Materno: %s", profesor[i].numeroEmpleado, profesor[i].datos_profesor[i].nombre, profesor[i].datos_profesor[i].apPaterno, profesor[i].datos_profesor[i].apMaterno);
+        }
+        printf("\n--------------------------------------\n");
+}
 
 int main(void){
 	menu();
+	imprimirProfesores();
 	return 0;
 }
